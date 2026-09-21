@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XI.5 IPS — Digital Class Experience</title>
+<meta name="description" content="Landing page kelas XI.5 IPS, SMA Negeri 2 Tegal. One class, one story, one journey.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- ============ NAVBAR ============ -->
+<header class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="#home" class="nav-logo">
+      <span class="nav-logo-mark">XI.5</span>
+      <span class="nav-logo-text">IPS</span>
+    </a>
+
+    <nav class="nav-menu" id="navMenu">
+      <a href="#home" class="nav-item active" data-section="home">Home</a>
+      <a href="#about" class="nav-item" data-section="about">About</a>
+      <a href="#features" class="nav-item" data-section="features">Features</a>
+      <a href="#schedule" class="nav-item" data-section="schedule">Schedule</a>
+      <a href="#gallery" class="nav-item" data-section="gallery">Gallery</a>
+      <a href="#contact" class="nav-item" data-section="contact">Contact</a>
+    </nav>
+
+    <a href="dashboard/dashboard.html" class="btn btn-primary btn-sm nav-cta" data-open-dashboard>Open Dashboard</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Buka menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" class="mobile-item" data-section="home">Home</a>
+    <a href="#about" class="mobile-item" data-section="about">About</a>
+    <a href="#features" class="mobile-item" data-section="features">Features</a>
+    <a href="#schedule" class="mobile-item" data-section="schedule">Schedule</a>
+    <a href="#gallery" class="mobile-item" data-section="gallery">Gallery</a>
+    <a href="#contact" class="mobile-item" data-section="contact">Contact</a>
+    <button class="btn btn-primary" data-open-dashboard style="width:100%; margin-top:10px;">Open Dashboard</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <div class="blob blob-a"></div>
+    <div class="blob blob-b"></div>
+    <div class="grid-pattern"></div>
+  </div>
+
+  <div class="section-inner hero-inner">
+    <div class="hero-copy reveal">
+      <span class="badge"><i class="fa-solid fa-sparkles"></i> Welcome to our digital class</span>
+      <h1 class="hero-title">
+        One class.<br>
+        One story.<br>
+        <span class="text-gradient">One journey.</span>
+      </h1>
+      <p class="hero-desc">Selamat datang di ruang digital kelas kami. Tempat untuk berbagi informasi, jadwal, kegiatan, dan cerita selama perjalanan bersama.</p>
+      <div class="hero-actions">
+        <a href="#about" class="btn btn-primary">Explore Our Class</a>
+        <button class="btn btn-ghost" data-open-dashboard>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Dashboard
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal">
+      <div class="visual-card">
+        <div class="visual-topbar">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="visual-body">
+          <div class="visual-row">
+            <div class="visual-dot"></div>
+            <div class="visual-lines"><i></i><i></i></div>
+          </div>
+          <div class="visual-chart">
+            <div class="vc-bar" style="--h:38%"></div>
+            <div class="vc-bar" style="--h:64%"></div>
+            <div class="vc-bar" style="--h:48%"></div>
+            <div class="vc-bar" style="--h:82%"></div>
+            <div class="vc-bar" style="--h:58%"></div>
+            <div class="vc-bar" style="--h:70%"></div>
+          </div>
+          <div class="visual-row">
+            <div class="visual-pill"></div>
+            <div class="visual-pill short"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-card fc-1">
+        <i class="fa-solid fa-user-group"></i>
+        <div><strong>33</strong><span>Students</span></div>
+      </div>
+      <div class="float-card fc-3">
+        <i class="fa-solid fa-images"></i>
+        <div><strong>100+</strong><span>Memories</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue"><span></span></div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <h2>More than just a classroom</h2>
+      <p>Kami bukan hanya sekumpulan siswa dalam satu ruangan. Kami adalah sebuah tim yang belajar, berkembang, bekerja sama, dan menciptakan banyak cerita bersama.</p>
+    </div>
+
+    <div class="stat-row reveal">
+      <div class="stat-block">
+        <strong class="counter" data-target="33">0</strong>
+        <span>Students</span>
+      </div>
+      <div class="stat-block">
+        <strong class="counter" data-target="6">0</strong>
+        <span>Days / Week</span>
+      </div>
+      <div class="stat-block">
+        <strong class="counter" data-target="1">0</strong>
+        <span>Amazing Class</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="features" id="features">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <h2>Everything about our class, in one place.</h2>
+      <p>Semua kebutuhan informasi kelas terangkum rapi di satu ruang digital.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon"><i class="fa-solid fa-calendar-days"></i></div>
+        <h3>Class Schedule</h3>
+        <p>Lihat jadwal mata pelajaran dengan mudah, kapan saja.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><i class="fa-solid fa-broom"></i></div>
+        <h3>Duty Schedule</h3>
+        <p>Ketahui jadwal piket kelas tanpa perlu bertanya lagi.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><i class="fa-solid fa-list-check"></i></div>
+        <h3>Assignments</h3>
+        <p>Pantau tugas dan deadline dari setiap mata pelajaran.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><i class="fa-solid fa-bullhorn"></i></div>
+        <h3>Announcements</h3>
+        <p>Dapatkan informasi terbaru dari kelas secara langsung.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon"><i class="fa-solid fa-images"></i></div>
+        <h3>Memories</h3>
+        <p>Kumpulan foto dan momen berharga selama di kelas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLASS PREVIEW (DASHBOARD MOCKUP) ============ -->
+<section class="preview" id="preview">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <h2>Your class, digitally organized.</h2>
+      <p>Satu dashboard untuk seluruh aktivitas dan informasi kelas.</p>
+    </div>
+
+    <div class="mockup reveal">
+      <div class="mockup-topbar">
+        <div class="mockup-dots"><span></span><span></span><span></span></div>
+        <div class="mockup-url"><i class="fa-solid fa-lock"></i> classroom.xi5ips.sch.id/dashboard</div>
+      </div>
+      <div class="mockup-body">
+        <aside class="mockup-side">
+          <div class="ms-item active"><i class="fa-solid fa-house"></i></div>
+          <div class="ms-item"><i class="fa-solid fa-calendar-days"></i></div>
+          <div class="ms-item"><i class="fa-solid fa-broom"></i></div>
+          <div class="ms-item"><i class="fa-solid fa-list-check"></i></div>
+          <div class="ms-item"><i class="fa-solid fa-bullhorn"></i></div>
+        </aside>
+        <div class="mockup-main">
+          <div class="mockup-grid">
+            <div class="mockup-card wide">
+              <span class="mc-label">Today's Schedule</span>
+              <div class="mc-row"><strong>07:00</strong><span>Agama</span></div>
+              <div class="mc-row"><strong>08:30</strong><span>B. Inggris Lanjut</span></div>
+              <div class="mc-row"><strong>10:15</strong><span>Penjas</span></div>
+            </div>
+            <div class="mockup-card">
+              <span class="mc-label">Duty Today</span>
+              <div class="mc-avatars"><span>AR</span><span>SA</span><span>BP</span></div>
+            </div>
+            <div class="mockup-card">
+              <span class="mc-label">Students</span>
+              <strong class="mc-big">33</strong>
+            </div>
+            <div class="mockup-card wide">
+              <span class="mc-label">Upcoming Assignment</span>
+              <div class="mc-row"><strong>Social Change Essay</strong><span>2 days left</span></div>
+            </div>
+            <div class="mockup-card wide">
+              <span class="mc-label">Announcement</span>
+              <p>Besok ada ulangan harian Sosiologi, jangan lupa belajar!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="preview-cta reveal">
+      <button class="btn btn-primary" data-open-dashboard>Explore Dashboard</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCHEDULE PREVIEW ============ -->
+<section class="schedule" id="schedule">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <h2>Jadwal Pelajaran</h2>
+      <p>Cuplikan jadwal pelajaran hari ini — otomatis menyesuaikan hari.</p>
+    </div>
+
+    <div class="schedule-wrap reveal">
+      <div class="schedule-day-label">
+        <i class="fa-regular fa-calendar"></i>
+        <span id="scheduleDayName">Monday</span>
+      </div>
+      <div class="schedule-track" id="scheduleTrack"></div>
+    </div>
+
+    <div class="preview-cta reveal">
+      <button class="btn btn-outline" data-open-dashboard>View Full Schedule</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLASS MEMBERS ============ -->
+<section class="members" id="members">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <h2>Meet our class</h2>
+      <p>Wajah-wajah yang mewarnai perjalanan XI.5 IPS.</p>
+    </div>
+
+    <div class="member-grid" id="memberGrid"></div>
+
+    <div class="preview-cta reveal">
+      <button class="btn btn-outline" id="viewAllMembers">View All Members</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery" id="gallery">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <h2>Gallery</h2>
+      <p>Kumpulan momen yang layak dikenang.</p>
+    </div>
+
+    <div class="bento-gallery" id="bentoGallery"></div>
+  </div>
+</section>
+
+<!-- ============ QUOTE ============ -->
+<section class="quote-section">
+  <div class="section-inner reveal">
+    <p class="big-quote">
+      Different people.<br>
+      Different stories.<br>
+      <span class="text-gradient">One unforgettable journey.</span>
+    </p>
+    <span class="quote-source">— XI.5 IPS</span>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta-section" id="contact">
+  <div class="section-inner cta-inner reveal">
+    <h2>Ready to explore our class?</h2>
+    <p>Semua informasi kelas sekarang ada dalam satu tempat.</p>
+    <button class="btn btn-light" data-open-dashboard>Open Class Dashboard</button>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="section-inner footer-inner">
+    <div class="footer-brand">
+      <span class="nav-logo-text" style="font-size:1.15rem;">XI.5 IPS</span>
+      <p>Learn. Grow. Create memories.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <span class="footer-heading">Quick Links</span>
+      <a href="#home" data-section="home">Home</a>
+      <a href="#about" data-section="about">About</a>
+      <a href="#features" data-section="features">Features</a>
+      <a href="#gallery" data-section="gallery">Gallery</a>
+      <button data-open-dashboard>Dashboard</button>
+    </div>
+  </div>
+  <p class="footer-bottom">&copy; <span id="currentYear"></span> XI.5 IPS. All rights reserved.</p>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

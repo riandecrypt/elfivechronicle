@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XI.5 IPS — Dashboard</title>
+<meta name="description" content="Pusat informasi digital kelas XI.5 IPS">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<!-- Stylesheet -->
+<link rel="stylesheet" href="dashboard-style.css">
+</head>
+<body>
+
+<!-- ============ MOBILE OVERLAY ============ -->
+<div id="overlay" class="overlay"></div>
+
+<!-- ============ SIDEBAR ============ -->
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-head">
+    <div class="brand">
+      <div class="brand-mark">XI.5</div>
+      <div class="brand-text">
+        <strong>Admin</strong>
+        <span>Classroom Digital</span>
+      </div>
+    </div>
+    <button id="sidebarClose" class="icon-btn only-mobile" aria-label="Tutup menu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <nav class="nav" id="navMenu">
+    <a href="#" class="nav-link active" data-page="dashboard"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+    <a href="#" class="nav-link" data-page="jadwal"><i class="fa-solid fa-calendar-days"></i><span>Jadwal Pelajaran</span></a>
+    <a href="#" class="nav-link" data-page="piket"><i class="fa-solid fa-broom"></i><span>Jadwal Piket</span></a>
+    <a href="#" class="nav-link" data-page="siswa"><i class="fa-solid fa-user-group"></i><span>Data Siswa</span></a>
+    <a href="#" class="nav-link" data-page="guru"><i class="fa-solid fa-chalkboard-user"></i><span>Data Guru</span></a>
+    <a href="#" class="nav-link" data-page="struktur"><i class="fa-solid fa-sitemap"></i><span>Struktur Kelas</span></a>
+    <a href="#" class="nav-link" data-page="tugas"><i class="fa-solid fa-list-check"></i><span>Tugas</span></a>
+    <a href="#" class="nav-link" data-page="pengumuman"><i class="fa-solid fa-bullhorn"></i><span>Pengumuman</span></a>
+    <a href="#" class="nav-link" data-page="event"><i class="fa-solid fa-calendar-star"></i><span>Event</span></a>
+    <a href="#" class="nav-link" data-page="absensi"><i class="fa-solid fa-clipboard-check"></i><span>Absensi</span></a>
+    <a href="#" class="nav-link" data-page="kas"><i class="fa-solid fa-wallet"></i><span>Kas Kelas</span></a>
+    <a href="#" class="nav-link" data-page="galeri"><i class="fa-solid fa-images"></i><span>Galeri</span></a>
+    <a href="#" class="nav-link" data-page="profil"><i class="fa-solid fa-id-card"></i><span>Profil Kelas</span></a>
+  </nav>
+
+  <div class="sidebar-foot">
+    <button id="themeToggle" class="theme-toggle" aria-label="Ganti tema">
+      <i class="fa-solid fa-sun"></i>
+      <span class="track"><span class="thumb"></span></span>
+      <i class="fa-solid fa-moon"></i>
+    </button>
+  </div>
+</aside>
+
+<!-- ============ MAIN WRAPPER ============ -->
+<div class="main-wrap">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <button id="hamburger" class="icon-btn only-mobile" aria-label="Buka menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="search-wrap">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="globalSearch" type="text" placeholder="Cari siswa, guru, tugas, pengumuman..." aria-label="Pencarian global">
+      <div id="searchResults" class="search-results hidden"></div>
+    </div>
+
+    <div class="topbar-actions">
+      <div class="notif-wrap">
+        <button id="notifBtn" class="icon-btn" aria-label="Notifikasi">
+          <i class="fa-solid fa-bell"></i>
+          <span id="notifDot" class="notif-dot"></span>
+        </button>
+        <div id="notifPanel" class="notif-panel hidden"></div>
+      </div>
+      <div class="user-chip">
+        <div class="avatar-mini">XI.5</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- ===================== DASHBOARD ===================== -->
+    <section id="page-dashboard" class="page-section">
+      <div class="hero">
+        <div class="hero-text">
+          <p id="greeting" class="hero-eyebrow">Selamat Datang</p>
+          <h1>XI.5 IPS<br><em>Class</em></h1>
+          <p class="hero-sub">Pusat informasi kelas — jadwal, tugas, kas, dan seluruh aktivitas kelas dalam satu tempat.</p>
+          <div class="hero-meta">
+            <div><i class="fa-regular fa-clock"></i><span id="liveClock">--:--:--</span></div>
+            <div><i class="fa-regular fa-calendar"></i><span id="liveDate">-</span></div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-row"><span>Jurusan</span><strong>IPS</strong></div>
+          <div class="hero-card-row"><span>Sekolah</span><strong>SMA Negeri 2 Tegal</strong></div>
+          <div class="hero-card-row"><span>Wali Kelas</span><strong>Muhammad Fakhrurrozi S.Pd</strong></div>
+          <div class="hero-card-row"><span>Tahun Ajaran</span><strong>2026/2027</strong></div>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <i class="fa-solid fa-user-group"></i>
+          <div><strong id="statSiswa">0</strong><span>Jumlah Siswa</span></div>
+        </div>
+        <div class="stat-card">
+          <i class="fa-solid fa-chalkboard-user"></i>
+          <div><strong id="statGuru">0</strong><span>Jumlah Guru</span></div>
+        </div>
+        <div class="stat-card">
+          <i class="fa-solid fa-book-open"></i>
+          <div><strong id="statMapel">0</strong><span>Mata Pelajaran</span></div>
+        </div>
+        <div class="stat-card">
+          <i class="fa-solid fa-calendar-day"></i>
+          <div><strong id="statJadwalHariIni">0</strong><span>Jadwal Hari Ini</span></div>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Pelajaran Berikutnya</h3>
+            <span class="pill" id="nextClassDay">-</span>
+          </div>
+          <div id="nextClassBox" class="next-class-box">
+            <p class="empty-note">Memuat jadwal...</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Piket Hari Ini</h3>
+            <span class="pill" id="dashPiketDay">-</span>
+          </div>
+          <ul id="dashPiketList" class="simple-list"></ul>
+        </div>
+
+        <div class="panel span-2">
+          <div class="panel-head">
+            <h3>Pengumuman Terbaru</h3>
+            <a href="#" class="link-more" data-page="pengumuman">Lihat semua <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+          <div id="dashPengumuman" class="announce-mini-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== JADWAL ===================== -->
+    <section id="page-jadwal" class="page-section hidden">
+      <div class="page-head">
+        <div>
+          <h2>Jadwal Pelajaran</h2>
+          <p>Jadwal mata pelajaran kelas XI.5 IPS, Senin — Jumat.</p>
+        </div>
+      </div>
+
+      <div class="day-tabs" id="jadwalTabs"></div>
+
+      <div id="jadwalList" class="schedule-list"></div>
+    </section>
+
+    <!-- ===================== PIKET ===================== -->
+    <section id="page-piket" class="page-section hidden">
+      <div class="page-head">
+        <div>
+          <h2>Jadwal Piket</h2>
+          <p>Pembagian tugas kebersihan kelas setiap hari.</p>
+        </div>
+      </div>
+      <div id="piketToday" class="today-banner"></div>
+      <div id="piketGrid" class="piket-grid"></div>
+    </section>
+
+    <!-- ===================== SISWA ===================== -->
+    <section id="page-siswa" class="page-section hidden">
+      <div class="page-head">
+        <div>
+          <h2>Data Siswa</h2>
+          <p>Daftar siswa/siswi kelas XI.5 IPS.</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbar-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="siswaSearch" type="text" placeholder="Cari nama siswa...">
+        </div>
+        <select id="siswaFilterGender" class="select-input">
+          <option value="all">Semua Gender</option>
+          <option value="L">Laki-laki</option>
+          <option value="P">Perempuan</option>
+        </select>
+        <select id="siswaSort" class="select-input">
+          <option value="absen">Urutkan: No. Absen</option>
+          <option value="nama">Urutkan: Nama</option>
+        </select>
+        <div class="view-toggle">
+          <button id="siswaViewCard" class="view-btn active" aria-label="Tampilan kartu"><i class="fa-solid fa-grip"></i></button>
+          <button id="siswaViewTable" class="view-btn" aria-label="Tampilan tabel"><i class="fa-solid fa-table-list"></i></button>
+        </div>
+      </div>
+
+      <div id="siswaCardView" class="student-grid"></div>
+      <div id="siswaTableView" class="table-wrap hidden">
+        <table class="data-table">
+          <thead>
+            <tr><th>No</th><th>Nama</th><th>NIS</th><th>Gender</th><th>Jabatan</th></tr>
+          </thead>
+          <tbody id="siswaTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================== GURU ===================== -->
+    <section id="page-guru" class="page-section hidden">
+      <div class="page-head">
+        <div>
+          <h2>Data Guru</h2>
+          <p>Guru pengajar di kelas XI.5 IPS.</p>
+        </div>
+      </div>
+      <div id="guruGrid" class="teacher-grid"></div>
+    </section>
+
+    <!-- ===================== STRUKTUR ===================== -->
+    <section id="page-struktur" class="page-section hidden">
+      <div class="page-head">
+        <div>
+          <h2>Struktur Organisasi Kelas</h2>
+          <p>Susunan pengurus kelas XI.5 IPS tahun ajaran 2026/2027.</p>
+        </div>
+      </div>
+      <div id="strukturTop" class="struktur-top"></div>
+      <div id="strukturGrid" class="struktur-grid"></div>
+    </section>
+
+    <!-- ===================== TUGAS ===================== -->
+    <section id="page-tugas" class="page-section hidden">
+      <div class="page-head">
+        <div>
+          <h2>Tugas &amp; Assignment</h2>
+          <p>Pantau tugas dari setiap mata pelajaran.</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbar-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="tugasSearch" type="text" placeholder="Cari tugas...">
+        </div>
+        <select id="tugasFilterStatus" class="select-input">
+          <option value="all">Semua Status</option>
+          <option value="belum">Belum Dikerjakan</option>
+          <option value="proses">Sedang Dikerjakan</option>
+          <option value="selesai">Selesai</option>
+        </select>
+        <select id="tugasSort" class="select-input">
+          <option value="deadline">Urutkan: Deadline</option>
+          <option value="mapel">Urutkan: Mapel</option>
+        </select>
+        <button id="addTaskBtn" class="btn-add-task"><i class="fa-solid fa-plus"></i> Tambah Tugas</button>
+      </div>
+
+      <div id="tugasList" class="task-list"></div>
+    </section>
+
+    <!-- ===================== PENGUMUMAN ===================== -->
+    <section id="page-pengumuman" class="page-section hidden">
+      <div class="page-head">
+        <div>
+          <h2>Pengumuman Kelas</h2>
+          <p>Informasi dan pemberitahuan terbaru untuk kelas.</p>
+        </div>
+        <button id="addAnnounceBtn" class="btn-add-task"><i class="fa-solid fa-plus"></i> Tambah Pengumuman</button>
+      </div>
+      <div id="pengumumanList" class="announce-list"></div>
+    </section>
+
+    <!-- ===================== EVENT ===================== -->
+    <section id="page-event" class="page-section hidden">
+      <div class="page-head">
+        <div>
+          <h2>Event &amp; Kegiatan Kelas</h2>
+          <p>Agenda dan kegiatan yang akan maupun telah berlangsung.</p>
+        </div>
+        <button id="addEventBtn" class="btn-add-task"><i class="fa-solid fa-plus"></i> Tambah Event</button>
+      </div>
+      <div id="eventTimeline" class="timeline"></div>
+    </section>
+
+    <!-- ===================== ABSENSI ===================== -->
+    <section id="page-absensi" class="page-section hidden">
+      <div class="page-head">
+        <div>
+          <h2>Absensi</h2>
+          <p>Rekap kehadiran siswa kelas XI.5 IPS bulan ini.</p>
+        </div>
+        <button id="addAbsensiBtn" class="btn-add-task"><i class="fa-solid fa-plus"></i> Tambah Data Absensi</button>
+      </div>
+
+      <div class="absen-grid">
+        <div class="absen-stat hadir"><i class="fa-solid fa-check"></i><div><strong id="absenHadir">0</strong><span>Hadir</span></div></div>
+        <div class="absen-stat izin"><i class="fa-solid fa-file-lines"></i><div><strong id="absenIzin">0</strong><span>Izin</span></div></div>
+        <div class="absen-stat sakit"><i class="fa-solid fa-notes-medical"></i><div><strong id="absenSakit">0</strong><span>Sakit</span></div></div>
+        <div class="absen-stat alpa"><i class="fa-solid fa-xmark"></i><div><strong id="absenAlpa">0</strong><span>Alpa</span></div></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h3>Persentase Kehadiran</h3></div>
+        <div id="absenBars" class="absen-bars"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h3>Riwayat Absensi</h3></div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Tanggal</th><th>Hadir</th><th>Izin</th><th>Sakit</th><th>Alpa</th><th>Aksi</th></tr></thead>
+            <tbody id="absenTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== KAS ===================== -->
+    <section id="page-kas" class="page-section hidden">
+      <div class="page-head">
+        <div>
+          <h2>Kas Kelas</h2>
+          <p>Catatan pemasukan dan pengeluaran kas kelas.</p>
+        </div>
+      </div>
+
+      <div class="kas-summary">
+        <div class="kas-card saldo"><span>Saldo Kas</span><strong id="kasSaldo">Rp0</strong></div>
+        <div class="kas-card masuk"><span>Total Pemasukan</span><strong id="kasMasuk">Rp0</strong></div>
+        <div class="kas-card keluar"><span>Total Pengeluaran</span><strong id="kasKeluar">Rp0</strong></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h3>Grafik Kas</h3></div>
+        <canvas id="kasChart" height="90"></canvas>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Riwayat Transaksi</h3>
+          <button id="addKasBtn" class="btn-add-task"><i class="fa-solid fa-plus"></i> Tambah Transaksi</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Tanggal</th><th>Keterangan</th><th>Jenis</th><th>Jumlah</th><th>Aksi</th></tr></thead>
+            <tbody id="kasTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== GALERI ===================== -->
+    <section id="page-galeri" class="page-section hidden">
+      <div class="page-head">
+        <div>
+          <h2>Galeri Kelas</h2>
+          <p>Dokumentasi momen dan kegiatan kelas XI.5 IPS.</p>
+        </div>
+      </div>
+      <div id="galeriGrid" class="gallery-grid"></div>
+    </section>
+
+    <!-- ===================== PROFIL ===================== -->
+    <section id="page-profil" class="page-section hidden">
+      <div class="page-head">
+        <div>
+          <h2>Profil Kelas</h2>
+          <p>Identitas dan cerita singkat kelas XI.5 IPS.</p>
+        </div>
+      </div>
+
+      <div class="profil-grid">
+        <div class="profil-card">
+          <h3>Identitas Kelas</h3>
+          <div class="profil-row"><span>Nama Kelas</span><strong>XI.5 IPS</strong></div>
+          <div class="profil-row"><span>Jurusan</span><strong>Ilmu Pengetahuan Sosial (IPS)</strong></div>
+          <div class="profil-row"><span>Sekolah</span><strong>SMA Negeri 2 Tegal</strong></div>
+          <div class="profil-row"><span>Wali Kelas</span><strong>Muhammad Fakhrurrozi, S.Pd</strong></div>
+          <div class="profil-row"><span>Tahun Ajaran</span><strong>2026/2027</strong></div>
+          <div class="profil-row"><span>Moto Kelas</span><strong>"Belajar, Berkarya, Bersama"</strong></div>
+        </div>
+        <div class="profil-card about">
+          <h3>About Our Class</h3>
+          <p>XI.5 IPS adalah kelas yang berfokus pada rumpun ilmu sosial, mulai dari sejarah, sosiologi, ekonomi, hingga geografi. Kelas ini dibentuk dari siswa-siswa dengan rasa ingin tahu tinggi terhadap dinamika sosial dan kehidupan masyarakat, serta selalu berusaha membangun kebiasaan belajar yang kolaboratif dan suasana kelas yang hangat dan suportif.</p>
+          <p>Selain kegiatan akademik, kelas ini juga aktif dalam kegiatan non-akademik seperti kerja bakti, study tour, dan berbagai perayaan kecil untuk mempererat kebersamaan antar anggota kelas.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div>
+        <strong>XI.5 IPS</strong>
+        <span>SMA Negeri 2 Tegal &middot; Tahun Ajaran 2026/2027</span>
+      </div>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="WhatsApp Group"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+    <p class="footer-note">Made with <i class="fa-solid fa-heart"></i> by Class XI.5 IPS</p>
+  </footer>
+
+</div>
+
+<!-- ============ MODAL ============ -->
+<div id="modalOverlay" class="modal-overlay hidden">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<!-- ============ LIGHTBOX ============ -->
+<div id="lightbox" class="lightbox hidden">
+  <button id="lightboxClose" class="lightbox-close" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script src="dashboard-script.js"></script>
+</body>
+</html>
