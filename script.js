@@ -91,7 +91,7 @@ const members = [
 // (contoh: "assets/images/galeri/kerja-bakti.jpg"). Kosongkan untuk memakai
 // foto contoh dari internet sebagai placeholder sementara.
 const galleryImages = [
-  { caption: "Praktikum Lab Komputer", src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAkxSSMgipr6B57BO7wNTE3mQAu_rIxoWRs2EPaKxfBA&s=10", query: "classroom-computer-lab", size: "wide" },
+  { caption: "Praktikum Lab Komputer", src: "", query: "classroom-computer-lab", size: "wide" },
   { caption: "Presentasi Tugas", src: "", query: "students-presentation", size: "" },
   { caption: "Kerja Bakti Kelas", src: "", query: "students-cleaning-classroom", size: "tall" },
   { caption: "Foto Bersama Wali Kelas", src: "", query: "classroom-group-photo", size: "" },
