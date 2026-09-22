@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk - Panel Sistem</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --accent: #a855f7;
+            --bg-dark: #090d16;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --error: #f43f5e;
+            --success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Ambient Glowing Background */
+        .ambient-light {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(110px);
+            opacity: 0.4;
+            animation: pulseGlow 12s infinite alternate ease-in-out;
+        }
+
+        .blob-1 {
+            width: 480px;
+            height: 480px;
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            top: -10%;
+            left: -10%;
+        }
+
+        .blob-2 {
+            width: 520px;
+            height: 520px;
+            background: linear-gradient(135deg, var(--accent), #ec4899);
+            bottom: -15%;
+            right: -10%;
+            animation-delay: -6s;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.15) translate(40px, -30px); }
+        }
+
+        /* Main Container */
+        .wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            z-index: 10;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 44px 38px;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.65),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .glass-card.shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+            40%, 60% { transform: translate3d(8px, 0, 0); }
+        }
+
+        /* Header Logo & Title */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+
+        .brand-logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #fff;
+            box-shadow: 0 12px 28px -6px rgba(99, 102, 241, 0.5);
+            margin-bottom: 18px;
+        }
+
+        .brand-header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-header p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-top: 6px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.825rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+            letter-spacing: 0.02em;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i.field-icon {
+            position: absolute;
+            left: 16px;
+            color: #64748b;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            background: rgba(15, 23, 42, 0.65);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-wrapper input::placeholder {
+            color: #475569;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary);
+            background: rgba(15, 23, 42, 0.85);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.22);
+        }
+
+        .input-wrapper input:focus ~ i.field-icon {
+            color: var(--primary);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            color: #64748b;
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-password:hover {
+            color: var(--text-main);
+        }
+
+        /* Checkbox & Links */
+        .form-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            font-size: 0.85rem;
+        }
+
+        .remember-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: var(--text-muted);
+            user-select: none;
+        }
+
+        .remember-checkbox input[type="checkbox"] {
+            accent-color: var(--primary);
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-link {
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .btn-link:hover {
+            color: #c084fc;
+            text-decoration: underline;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border: none;
+            border-radius: 14px;
+            color: #ffffff;
+            font-size: 0.975rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 12px 24px -6px rgba(99, 102, 241, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 32px -6px rgba(168, 85, 247, 0.6);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.8;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2.5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #ffffff;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            min-width: 320px;
+            padding: 14px 18px;
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.92);
+            border-left: 4px solid var(--primary);
+            color: var(--text-main);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(12px);
+            animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            font-size: 0.875rem;
+        }
+
+        .toast.success { border-color: var(--success); }
+        .toast.success i { color: var(--success); }
+
+        .toast.error { border-color: var(--error); }
+        .toast.error i { color: var(--error); }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeOutRight {
+            to { transform: translateX(100%); opacity: 0; opacity: 0; }
+        }
+
+        /* Modal Info Lupa Password */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background: #0f172a;
+            border: 1px solid var(--card-border);
+            border-radius: 22px;
+            padding: 28px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            transform: scale(0.85);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--primary);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 14px;
+        }
+
+        .modal-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .modal-box p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .btn-modal-close {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Light Background -->
+    <div class="ambient-light">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <!-- Toast Notification Holder -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <div class="wrapper">
+        <div id="loginCard" class="glass-card">
+            <div class="brand-header">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h1>Selamat Datang</h1>
+                <p>Masukkan kredensial akun Anda untuk masuk</p>
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="username" placeholder="Masukkan username" autocomplete="username" required>
+                        <i class="fa-solid fa-user field-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Kata Sandi</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" placeholder="Masukkan kata sandi" autocomplete="current-password" required>
+                        <i class="fa-solid fa-lock field-icon"></i>
+                        <i class="fa-solid fa-eye toggle-password" onclick="togglePasswordVisibility('password', this)" title="Tampilkan Kata Sandi"></i>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <label class="remember-checkbox">
+                        <input type="checkbox" id="rememberMe">
+                        <span>Ingat Saya</span>
+                    </label>
+                    <button type="button" class="btn-link" onclick="openForgotModal()">Lupa Password?</button>
+                </div>
+
+                <button type="submit" id="btnSubmit" class="btn-submit">
+                    <span id="btnText">Masuk Ke Sistem</span>
+                    <i id="btnIcon" class="fa-solid fa-arrow-right-to-bracket"></i>
+                    <div id="btnSpinner" class="spinner"></div>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Lupa Password -->
+    <div id="forgotModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon">
+                <i class="fa-solid fa-key"></i>
+            </div>
+            <h3>Lupa Password?</h3>
+            <p>Silakan hubungi administrator sistem Anda untuk melakukan reset kata sandi akun ini.</p>
+            <button class="btn-modal-close" onclick="closeForgotModal()">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        // Kredensial Valid
+        const VALID_USER = "admin";
+        const VALID_PASS = "admin123";
+
+        // Auto load username dari LocalStorage jika "Ingat Saya" dicentang sebelumnya
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('remembered_user');
+            if (savedUser) {
+                document.getElementById('username').value = savedUser;
+                document.getElementById('rememberMe').checked = true;
+                document.getElementById('password').focus();
+            }
+        });
+
+        // Toggle Tampilkan / Sembunyikan Password
+        function togglePasswordVisibility(fieldId, iconElem) {
+            const field = document.getElementById(fieldId);
+            if (field.type === 'password') {
+                field.type = 'text';
+                iconElem.classList.remove('fa-eye');
+                iconElem.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                iconElem.classList.remove('fa-eye-slash');
+                iconElem.classList.add('fa-eye');
+            }
+        }
+
+        // Toast Notification System
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icon = type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
+            
+            toast.innerHTML = `
+                <i class="fa-solid ${icon}"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'fadeOutRight 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 3200);
+        }
+
+        // Fungsi Redirect ke Dashboard Utama User
+        function redirectToDashboard() {
+            // =========================================================================
+            // PETUNJUK INTEGRASI DASHBOARD:
+            // Jika file dashboard Anda berada di file terpisah (misal 'dashboard.html' 
+            // atau '/admin/index.html'), ganti URL di bawah ini:
+            // =========================================================================
+            window.location.href = "dashboard.html"; 
+        }
+
+        // Handle Form Submission / Login
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const usernameInput = document.getElementById('username').value.trim();
+            const passwordInput = document.getElementById('password').value.trim();
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            const loginCard = document.getElementById('loginCard');
+            const btnSubmit = document.getElementById('btnSubmit');
+            const btnText = document.getElementById('btnText');
+            const btnIcon = document.getElementById('btnIcon');
+            const btnSpinner = document.getElementById('btnSpinner');
+
+            // Set state loading pada tombol
+            btnSubmit.disabled = true;
+            btnText.innerText = 'Memverifikasi...';
+            btnIcon.style.display = 'none';
+            btnSpinner.style.display = 'block';
+
+            setTimeout(() => {
+                // Autentikasi Credential
+                if (usernameInput === VALID_USER && passwordInput === VALID_PASS) {
+                    // Simpan status login di Session Storage
+                    sessionStorage.setItem('isLoggedIn', 'true');
+                    sessionStorage.setItem('username', usernameInput);
+
+                    // Simpan / hapus Ingat Saya
+                    if (rememberMe) {
+                        localStorage.setItem('remembered_user', usernameInput);
+                    } else {
+                        localStorage.removeItem('remembered_user');
+                    }
+
+                    showToast('Login berhasil! Mengalihkan ke dashboard...', 'success');
+
+                    // Panggil redirect ke dashboard
+                    setTimeout(() => {
+                        redirectToDashboard();
+                    }, 1000);
+
+                } else {
+                    // Kembalikan tombol ke keadaan semula
+                    btnSubmit.disabled = false;
+                    btnText.innerText = 'Masuk Ke Sistem';
+                    btnIcon.style.display = 'inline-block';
+                    btnSpinner.style.display = 'none';
+
+                    // Tampilkan pesan error & animasi shake
+                    showToast('Username atau password salah!', 'error');
+                    loginCard.classList.add('shake');
+                    
+                    // Reset input password & fokuskan
+                    const passwordField = document.getElementById('password');
+                    passwordField.value = '';
+                    passwordField.focus();
+
+                    setTimeout(() => {
+                        loginCard.classList.remove('shake');
+                    }, 500);
+                }
+            }, 800); // Penundaan simulasi server
+        }
+
+        // Modal Handlers
+        function openForgotModal() {
+            document.getElementById('forgotModal').classList.add('active');
+        }
+
+        function closeForgotModal() {
+            document.getElementById('forgotModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
